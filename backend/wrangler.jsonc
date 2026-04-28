@@ -1,0 +1,5 @@
+{
+  "name": "jci-backend",
+  "compatibility_date": "2026-01-27",
+  "main": "./server.js"
+}
