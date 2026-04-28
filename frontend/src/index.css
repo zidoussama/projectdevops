@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* JCI Beni Khiar Design System
+   Official JCI Colors: Deep Blue, Gold, White
+   Modern & Bold aesthetic
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap');
+
+@layer base {
+  :root {
+    /* JCI Primary Blue */
+    --primary: 213 100% 24%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* JCI Gold */
+    --accent: 42 93% 57%;
+    --accent-foreground: 213 100% 15%;
+    
+    /* Backgrounds */
+    --background: 0 0% 100%;
+    --foreground: 213 50% 15%;
+    
+    /* Cards & Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 213 50% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 50% 15%;
+    
+    /* Secondary - Light Blue tint */
+    --secondary: 213 40% 95%;
+    --secondary-foreground: 213 100% 24%;
+    
+    /* Muted */
+    --muted: 213 20% 95%;
+    --muted-foreground: 213 20% 40%;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders & Inputs */
+    --border: 213 20% 88%;
+    --input: 213 20% 88%;
+    --ring: 213 100% 24%;
+    
+    --radius: 0.75rem;
+    
+    /* Sidebar */
+    --sidebar-background: 213 100% 20%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 42 93% 57%;
+    --sidebar-primary-foreground: 213 100% 15%;
+    --sidebar-accent: 213 100% 30%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 213 50% 30%;
+    --sidebar-ring: 42 93% 57%;
+    
+    /* Custom JCI tokens */
+    --jci-blue: 213 100% 24%;
+    --jci-blue-light: 213 80% 40%;
+    --jci-blue-dark: 213 100% 15%;
+    --jci-gold: 42 93% 57%;
+    --jci-gold-light: 42 93% 70%;
+    --jci-gold-dark: 42 93% 45%;
+  }
+
+  .dark {
+    --background: 213 50% 8%;
+    --foreground: 0 0% 98%;
+    
+    --card: 213 50% 12%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 213 50% 12%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 42 93% 57%;
+    --primary-foreground: 213 100% 15%;
+    
+    --secondary: 213 40% 20%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 213 30% 18%;
+    --muted-foreground: 213 20% 65%;
+    
+    --accent: 213 100% 40%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 213 30% 22%;
+    --input: 213 30% 22%;
+    --ring: 42 93% 57%;
+    
+    --sidebar-background: 213 50% 6%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 42 93% 57%;
+    --sidebar-primary-foreground: 213 100% 15%;
+    --sidebar-accent: 213 40% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 213 30% 20%;
+    --sidebar-ring: 42 93% 57%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* RTL support for Arabic */
+  [dir="rtl"] body {
+    font-family: 'Tajawal', 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .jci-gradient {
+    @apply bg-gradient-to-r from-primary to-[hsl(var(--jci-blue-light))];
+  }
+  
+  .jci-gradient-gold {
+    @apply bg-gradient-to-r from-accent to-[hsl(var(--jci-gold-light))];
+  }
+  
+  .jci-text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 md:px-8;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
