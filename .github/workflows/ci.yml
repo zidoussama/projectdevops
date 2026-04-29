@@ -36,15 +36,6 @@ jobs:
       - name: Docker Build
         run: docker build -t oussamazid/frontend:v1 .
 
-      - name: DockerHub Login
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
-
-      - name: Push Frontend Image
-        run: docker push oussamazid/frontend:v1
-
   backend:
     runs-on: ubuntu-latest
     defaults:
@@ -71,12 +62,3 @@ jobs:
 
       - name: Docker Build
         run: docker build -t oussamazid/backend:v1 .
-
-      - name: DockerHub Login
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
-
-      - name: Push Backend Image
-        run: docker push oussamazid/backend:v1
