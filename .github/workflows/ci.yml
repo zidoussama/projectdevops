@@ -41,7 +41,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
 
       - name: Docker Build
-        run: docker build -t oussamazid/backend:latest .
+        run: docker build -t oussamazid/frontend:latest .
 
 
       - name: Trivy Scan Frontend
