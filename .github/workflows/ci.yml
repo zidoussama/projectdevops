@@ -36,17 +36,16 @@ jobs:
       - name: Docker Build
         run: docker build -t oussamazid/frontend:v1 .
 
-      - name: DockerHub Login
-        uses: docker/login-action@v3
+      - name: Trivy Scan Frontend
+        uses: aquasecurity/trivy-action@master
         with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
-
-      - name: Push Frontend Image
-        run: docker push oussamazid/frontend:v1
+          image-ref: oussamazid/frontend:v1
+          severity: CRITICAL,HIGH
+          exit-code: 1
 
   backend:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: backend
@@ -72,11 +71,22 @@ jobs:
       - name: Docker Build
         run: docker build -t oussamazid/backend:v1 .
 
-      - name: DockerHub Login
-        uses: docker/login-action@v3
+      - name: Trivy Scan Backend
+        uses: aquasecurity/trivy-action@master
         with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
+          image-ref: oussamazid/backend:v1
+          severity: CRITICAL,HIGH
+          exit-code: 1
 
-      - name: Push Backend Image
-        run: docker push oussamazid/backend:v1
+  sonar:
+    runs-on: ubuntu-latest
+    needs: [frontend, backend]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
