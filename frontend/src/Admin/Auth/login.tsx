@@ -31,27 +31,26 @@ export default function AdminLogin() {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
+    setIsLoading(true);
     try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
-            email: data.email,
-            password: data.password,
-        }
-        );
-        if(!response){
-            throw new Error('Login failed');
-        }
-        const token = response.data.token;
-        Cookies.set('authToken', token, { expires: 1 });
-        window.location.href = '/admin/home';
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
+        email: data.email,
+        password: data.password,
+      });
 
-
-    
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        
+      if (!response) {
+        throw new Error('Login failed');
       }
+
+      const token = response.data.token;
+      Cookies.set('authToken', token, { expires: 1 });
+      window.location.href = '/admin/home';
+      setError(null);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+    } finally {
+      setIsLoading(false);
+    }
 
   };
 

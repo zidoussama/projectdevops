@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+type TeamApiItem = {
+  _id: string;
+  name: string;
+  role: TeamMember['role'];
+  year?: number;
+  image: string;
+};
+
 export interface TeamMember {
   id: string;
   name: {
@@ -29,12 +37,12 @@ export const useTeam = () => {
     const fetchTeam = async () => {
       try {
 
-        const response = await axios.get(
+        const response = await axios.get<{ teams?: TeamApiItem[] }>(
           `${import.meta.env.VITE_API_URL}/team`
         );
 
         // 👉 Mapping frontend (SANS toucher backend)
-        const formatted = (response.data.teams || []).map((item: any) => ({
+        const formatted = (response.data.teams || []).map((item) => ({
           id: item._id,
           name: {
             fr: item.name,
@@ -53,7 +61,7 @@ export const useTeam = () => {
 
         setTeam(formatted);
 
-      } catch (err: any) {
+      } catch (err: unknown) {
         setError('Failed to load team');
         console.error(err);
       } finally {

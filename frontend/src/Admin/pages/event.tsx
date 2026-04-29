@@ -57,6 +57,8 @@ interface Event {
     updatedAt?: string;
 }
 
+type FilterStatus = "all" | "upcoming" | "past";
+
 const API_URL = `${import.meta.env.VITE_API_URL}/event`;
 
 export default function EventsPage() {
@@ -64,7 +66,7 @@ export default function EventsPage() {
     const [events, setEvents] = useState<Event[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    const [filterStatus, setFilterStatus] = useState<"all" | "upcoming" | "past">("all");
+    const [filterStatus, setFilterStatus] = useState<FilterStatus>("all");
 
     // Modal State
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -248,7 +250,7 @@ export default function EventsPage() {
                     />
                 </div>
                 <div className="flex gap-2 w-full sm:w-auto">
-                    <Select value={filterStatus} onValueChange={(v: any) => setFilterStatus(v)}>
+                    <Select value={filterStatus} onValueChange={(v) => setFilterStatus(v as FilterStatus)}>
                         <SelectTrigger className="w-full sm:w-[180px]">
                             <SelectValue placeholder="Filtrer par statut" />
                         </SelectTrigger>

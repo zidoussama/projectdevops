@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+type GalleryApiItem = {
+  _id: string;
+  image: string;
+  type: string;
+  title: string;
+};
+
 export interface GalleryItem {
   id: string;
   src: string;
@@ -23,12 +30,12 @@ export const useGallery = () => {
     const fetchGallery = async () => {
       try {
 
-        const response = await axios.get(
+        const response = await axios.get<GalleryApiItem[]>(
           `${import.meta.env.VITE_API_URL}/gallery`
         );
 
         // 👉 Mapping frontend (SANS toucher backend)
-        const formatted = response.data.map((item: any) => ({
+        const formatted = response.data.map((item) => ({
           id: item._id,
           src: item.image,          // Cloudinary URL
           category: item.type,      // event, project...
@@ -41,7 +48,7 @@ export const useGallery = () => {
 
         setGallery(formatted);
 
-      } catch (err: any) {
+      } catch (err: unknown) {
         setError('Failed to load gallery');
         console.error(err);
       } finally {

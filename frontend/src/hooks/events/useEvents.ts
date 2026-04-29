@@ -1,6 +1,18 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+type EventApiItem = {
+  _id: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  location: string;
+  image: string;
+  details: string;
+  status: 'upcoming' | 'past';
+};
+
 export interface EventItem {
   id: string;
   title: {
@@ -41,12 +53,12 @@ export const useEvents = () => {
     const fetchEvents = async () => {
       try {
 
-        const response = await axios.get(
+        const response = await axios.get<EventApiItem[]>(
           `${import.meta.env.VITE_API_URL}/events`
         );
 
         // 👉 Mapping frontend (SANS toucher backend)
-        const formatted = response.data.map((item: any) => ({
+        const formatted = response.data.map((item) => ({
           id: item._id,
           title: {
             fr: item.title,
@@ -77,7 +89,7 @@ export const useEvents = () => {
 
         setEvents(formatted);
 
-      } catch (err: any) {
+      } catch (err: unknown) {
         setError('Failed to load events');
         console.error(err);
       } finally {
