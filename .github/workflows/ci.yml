@@ -100,8 +100,5 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          with:
-        args: >
-          -Dsonar.projectKey=zidoussama_projectdevops
-          -Dsonar.organization=zidoussama
-          -Dsonar.sources=frontend,backend
+          SONAR_PROJECT_KEY: ${{ secrets.PROJECT_KEY }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
