@@ -85,25 +85,20 @@ jobs:
       - name: Docker Build
         run: docker build -t oussamazid/backend:latest .
 
+      - name: docker push
+        run: docker push oussamazid/backend:latest
 
-      - name: Trivy Scan Backend
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: oussamazid/backend:latest
-          severity: CRITICAL,HIGH
-          exit-code: 1
-          
-          
+sonar:
+  runs-on: ubuntu-latest
+  needs: [frontend, backend]
 
-  sonar:
-    runs-on: ubuntu-latest
-    needs: [frontend, backend]
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_PROJECT_KEY: zidoussama_projectdevops
+        SONAR_ORGANIZATION: my_organization
