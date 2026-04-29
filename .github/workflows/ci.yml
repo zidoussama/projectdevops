@@ -47,7 +47,7 @@ jobs:
       - name: Trivy Scan Frontend
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: oussamazid/frontend:v1
+          image-ref: oussamazid/frontend:latest
           severity: CRITICAL,HIGH
           exit-code: 1
 
@@ -89,7 +89,7 @@ jobs:
       - name: Trivy Scan Backend
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: oussamazid/backend:v1
+          image-ref: oussamazid/backend:latest
           severity: CRITICAL,HIGH
           exit-code: 1
 
