@@ -33,13 +33,21 @@ jobs:
       - name: Build
         run: npm run build
 
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+
       - name: Docker Build
-        run: docker build -t oussamazid/frontend:v1 .
+        run: docker build -t oussamazid/frontend:latest .
+
 
       - name: Trivy Scan Frontend
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: oussamazid/frontend:v1
+          image-ref: oussamazid/frontend:latest
           severity: CRITICAL,HIGH
           exit-code: 1
 
@@ -68,15 +76,17 @@ jobs:
       - name: Test
         run: npm run test
 
-      - name: Docker Build
-        run: docker build -t oussamazid/backend:v1 .
-
-      - name: Trivy Scan Backend
-        uses: aquasecurity/trivy-action@master
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          image-ref: oussamazid/backend:v1
-          severity: CRITICAL,HIGH
-          exit-code: 1
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+
+      - name: Docker Build
+        run: docker build -t oussamazid/backend:latest .
+
+      - name: docker push
+        run: docker push oussamazid/backend:latest
 
   sonar:
     runs-on: ubuntu-latest
@@ -90,6 +100,9 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-
-
+        with:
+          args: >
+            -Dsonar.projectKey=zidoussama_projectdevops
+            -Dsonar.organization=zidoussama
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.sources=frontend,backend
