@@ -102,7 +102,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=${{ secrets.PROJECT_KEY }}
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.projectKey=zidoussama_projectdevops
+            -Dsonar.organization=zidoussama
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.sources=frontend,backend
