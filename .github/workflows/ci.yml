@@ -93,6 +93,7 @@ jobs:
           severity: CRITICAL,HIGH
           exit-code: 1
           
+          
 
   sonar:
     runs-on: ubuntu-latest
