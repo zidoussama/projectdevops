@@ -101,4 +101,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: zidoussama_projectdevops
-          SONAR_ORGANIZATION: my_organization
+          SONAR_ORGANIZATION: zidoussama
