@@ -88,6 +88,14 @@ jobs:
       - name: Docker Build
         run: docker build -t oussamazid/backend:latest .
 
+ 
+      - name: Trivy Scan Backend
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: oussamazid/backend:latest
+          severity: CRITICAL
+          exit-code: 1
+
       - name: docker push
         run: docker push oussamazid/backend:latest
 
