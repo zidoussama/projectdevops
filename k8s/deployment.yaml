@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  namespace: oussama
 
 spec:
   replicas: 2
@@ -27,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-
+  namespace: oussama
 spec:
   replicas: 2
   selector:
