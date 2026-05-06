@@ -43,7 +43,7 @@ jobs:
       - name: Docker Build
         run: docker build -t oussamazid/frontend:latest .
 
-
+ 
       - name: Trivy Scan Frontend
         uses: aquasecurity/trivy-action@master
         with:
